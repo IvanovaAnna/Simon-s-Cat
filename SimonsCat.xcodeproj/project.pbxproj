@@ -65,13 +65,13 @@
 			children = (
 				95CBD3651F39AA27006156A2 /* AppDelegate.swift */,
 				95CBD36B1F39AA27006156A2 /* GameScene.swift */,
+				95CBD37D1F39D264006156A2 /* ObjectsOnTheFloor.swift */,
+				95CBD3811F39E9C9006156A2 /* Cat.swift */,
 				95CBD36D1F39AA27006156A2 /* GameViewController.swift */,
 				95CBD36F1F39AA27006156A2 /* Main.storyboard */,
 				95CBD3721F39AA27006156A2 /* Assets.xcassets */,
 				95CBD3741F39AA27006156A2 /* LaunchScreen.storyboard */,
 				95CBD3771F39AA27006156A2 /* Info.plist */,
-				95CBD37D1F39D264006156A2 /* ObjectsOnTheFloor.swift */,
-				95CBD3811F39E9C9006156A2 /* Cat.swift */,
 			);
 			path = SimonsCat;
 			sourceTree = "<group>";

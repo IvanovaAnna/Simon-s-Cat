@@ -9,18 +9,14 @@
 import SpriteKit
 import GameplayKit
 
-//for the accelerometer
-import CoreMotion
-
 class GameScene: SKScene {
-    
-    let motionManager = CMMotionManager()
-    var xAcceleration: CGFloat = 0
-    var player: SKSpriteNode!
+
+    var player: Cat!
     
     override func didMove(to view: SKView) {
         configureStartScene ()
         spawnObjectsOnTheFloor ()
+        player.performMove()
     }
     
     //add new objects
@@ -29,7 +25,7 @@ class GameScene: SKScene {
         let spawnObjectWait = SKAction.wait(forDuration: 6)
         //add random object
         let spawnObjectAction = SKAction.run {
-            let object = ObjectsOnTheFloor.populate()
+            let object = ObjectsOnTheFloor.populate(at: nil)
             self.addChild(object)
         }
         let spawnObjectSequence = SKAction.sequence([spawnObjectWait, spawnObjectAction])
@@ -56,30 +52,18 @@ class GameScene: SKScene {
         player = Cat.populate(at: CGPoint(x: screen.size.width / 2, y: 150))
         self.addChild(player)
         
-        //how often to measure the acceleration
-        motionManager.accelerometerUpdateInterval = 0.2
-        motionManager.startAccelerometerUpdates(to: OperationQueue.current!) { (data, error) in
-            //data from sensors
-            if let data = data {
-                let acceleration = data.acceleration
-                //acceleration from inclination
-                //Coefficient for nonlinearity
-                self.xAcceleration = CGFloat(acceleration.x) * 0.7 + self.xAcceleration * 0.3
-            }
-        }
+        
     }
     
     override func didSimulatePhysics() {
-        super.didSimulatePhysics()
         
-        //moving the cat
-        player.position.x += xAcceleration * 50
+        player.checkPosition()
         
-        //If the cat goes behind the screen - appears on the other side
-        if player.position.x < -70 {
-            player.position.x = self.size.width + 70
-        } else if player.position.x > self.size.width + 70 {
-            player.position.x = -70
+        //delete items below the screen
+        enumerateChildNodes(withName: "оbjectsOnTheFloor") { (node, stop) in
+            if node.position.y < -100 {
+                node.removeFromParent()
+            }
         }
     }
 }

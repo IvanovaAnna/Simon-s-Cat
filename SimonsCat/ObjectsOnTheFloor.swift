@@ -14,8 +14,8 @@ class ObjectsOnTheFloor: SKSpriteNode {
     //add random point
     static func randomPoint () -> CGPoint {
         let screen = UIScreen.main.bounds
-        //above the screen for 100-200
-        let distribution = GKRandomDistribution(lowestValue: Int(screen.size.height) + 100, highestValue: Int(screen.size.height) + 200)
+        //above the screen for 200-300
+        let distribution = GKRandomDistribution(lowestValue: Int(screen.size.height) + 200, highestValue: Int(screen.size.height) + 300)
         let y = CGFloat(distribution.nextInt())
         //from 0 to the width of the screen
         let x = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: Int(screen.size.width)))
@@ -23,22 +23,17 @@ class ObjectsOnTheFloor: SKSpriteNode {
     }
     
     //add objects
-    static func populate ( ) -> ObjectsOnTheFloor {
+    static func populate (at point: CGPoint? ) -> ObjectsOnTheFloor {
         let objectImageName = configuraObjectsName ()
         let object = ObjectsOnTheFloor(imageNamed: objectImageName)
         object.setScale(0.8)
-        object.position = randomPoint()
+        //if no point - a random point
+        object.position = point ?? randomPoint()
         object.zPosition = 1
-        object.run(move(from: object.position))
-        return object
-    }
-    
-    static func populate (at point: CGPoint ) -> ObjectsOnTheFloor {
-        let objectImageName = configuraObjectsName ()
-        let object = ObjectsOnTheFloor(imageNamed: objectImageName)
-        object.setScale(0.8)
-        object.position = point
-        object.zPosition = 1
+        //add name for removing
+        object.name = "оbjectsOnTheFloor"
+        //move the middle up (y) for removing
+        object.anchorPoint = CGPoint(x: 0.5, y: 1.0)
         object.run(move(from: object.position))
         return object
     }
