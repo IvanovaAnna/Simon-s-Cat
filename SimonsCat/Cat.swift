@@ -22,7 +22,7 @@ class Cat: SKSpriteNode {
         let cat = Cat(texture: catTexture)
         cat.setScale(0.4)
         cat.position = point
-        cat.zPosition = 20
+        cat.zPosition = 10
         return cat
     }
     

@@ -22,7 +22,8 @@ class GameScene: SKScene {
     //add new objects
     fileprivate func spawnObjectsOnTheFloor () {
         //pause
-        let spawnObjectWait = SKAction.wait(forDuration: 4)
+        let ramdomTime = Double(arc4random_uniform(6) + 2)
+        let spawnObjectWait = SKAction.wait(forDuration: ramdomTime)
         //add random object
         let spawnObjectAction = SKAction.run {
             let object = ObjectsOnTheFloor.populate(at: nil)

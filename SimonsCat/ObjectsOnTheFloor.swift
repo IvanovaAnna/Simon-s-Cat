@@ -15,10 +15,12 @@ class ObjectsOnTheFloor: SKSpriteNode {
     static func randomPoint () -> CGPoint {
         let screen = UIScreen.main.bounds
         //above the screen for 50-100
-        let distribution = GKRandomDistribution(lowestValue: Int(screen.size.height) + 50, highestValue: Int(screen.size.height) + 100)
-        let y = CGFloat(distribution.nextInt())
-        //from 0 to the width of the screen
-        let x = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: Int(screen.size.width)))
+        let distributionY = GKRandomDistribution(lowestValue: Int(screen.size.height) + 50, highestValue: Int(screen.size.height) + 100)
+        let y = CGFloat(distributionY.nextInt())
+        //from 50 to the width of the screen - 50
+        let distributionX = GKRandomDistribution(lowestValue: 50, highestValue: Int(screen.size.width) - 50)
+        let x = CGFloat(distributionX.nextInt())
+
         return CGPoint(x: x, y: y)
     }
     
@@ -29,7 +31,7 @@ class ObjectsOnTheFloor: SKSpriteNode {
         object.setScale(0.8)
         //if no point - a random point
         object.position = point ?? randomPoint()
-        object.zPosition = 1
+        object.zPosition = 10
         //add name for removing
         object.name = "оbjectsOnTheFloor"
         //move the middle up (y) for removing
