@@ -22,7 +22,7 @@ class GameScene: SKScene {
     //add new objects
     fileprivate func spawnObjectsOnTheFloor () {
         //pause
-        let spawnObjectWait = SKAction.wait(forDuration: 6)
+        let spawnObjectWait = SKAction.wait(forDuration: 4)
         //add random object
         let spawnObjectAction = SKAction.run {
             let object = ObjectsOnTheFloor.populate(at: nil)
@@ -39,26 +39,17 @@ class GameScene: SKScene {
         
         let screen = UIScreen.main.bounds
         
-        //add starting item (left bottom x: 75, y: 400)
-        let itemsOnTheFloor1 = ObjectsOnTheFloor.populate(at: CGPoint(x: 75, y: 400))
-        self.addChild(itemsOnTheFloor1)
-        
-        //add starting item (right top x: 100, y: 200)
-        let itemsOnTheFloor2 = ObjectsOnTheFloor.populate(at: CGPoint(x: self.size.width - 100, y: self.size.height - 50))
-        self.addChild(itemsOnTheFloor2)
-        
+        //add starting item
+        let itemsOnTheFloor = ObjectsOnTheFloor.populate(at: CGPoint(x: screen.size.width / 3, y: screen.size.height))
+        self.addChild(itemsOnTheFloor)
         
         //add a cat
         player = Cat.populate(at: CGPoint(x: screen.size.width / 2, y: 150))
         self.addChild(player)
-        
-        
     }
     
     override func didSimulatePhysics() {
-        
         player.checkPosition()
-        
         //delete items below the screen
         enumerateChildNodes(withName: "оbjectsOnTheFloor") { (node, stop) in
             if node.position.y < -100 {
