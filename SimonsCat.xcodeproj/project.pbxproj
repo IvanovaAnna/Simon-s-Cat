@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9523CF841F430C22005FAC8A /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523CF831F430C22005FAC8A /* MenuScene.swift */; };
+		9523CF861F4320EE005FAC8A /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523CF851F4320EE005FAC8A /* Assets.swift */; };
 		95516C361F3B35660017CACF /* SimonsCat.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 95516C351F3B35660017CACF /* SimonsCat.atlas */; };
 		95CBD3661F39AA27006156A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CBD3651F39AA27006156A2 /* AppDelegate.swift */; };
 		95CBD36C1F39AA27006156A2 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CBD36B1F39AA27006156A2 /* GameScene.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9523CF831F430C22005FAC8A /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuScene.swift; path = ../MenuScene.swift; sourceTree = "<group>"; };
+		9523CF851F4320EE005FAC8A /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		95516C351F3B35660017CACF /* SimonsCat.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SimonsCat.atlas; sourceTree = "<group>"; };
 		95CBD3621F39AA27006156A2 /* SimonsCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimonsCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95CBD3651F39AA27006156A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,9 +69,11 @@
 			children = (
 				95CBD3651F39AA27006156A2 /* AppDelegate.swift */,
 				95CBD36B1F39AA27006156A2 /* GameScene.swift */,
+				9523CF831F430C22005FAC8A /* MenuScene.swift */,
 				95CBD37D1F39D264006156A2 /* ObjectsOnTheFloor.swift */,
 				95CBD3811F39E9C9006156A2 /* Cat.swift */,
 				95CBD36D1F39AA27006156A2 /* GameViewController.swift */,
+				9523CF851F4320EE005FAC8A /* Assets.swift */,
 				95CBD36F1F39AA27006156A2 /* Main.storyboard */,
 				95CBD3721F39AA27006156A2 /* Assets.xcassets */,
 				95CBD3741F39AA27006156A2 /* LaunchScreen.storyboard */,
@@ -151,8 +157,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				95CBD37E1F39D264006156A2 /* ObjectsOnTheFloor.swift in Sources */,
+				9523CF861F4320EE005FAC8A /* Assets.swift in Sources */,
 				95CBD36C1F39AA27006156A2 /* GameScene.swift in Sources */,
 				95CBD3821F39E9C9006156A2 /* Cat.swift in Sources */,
+				9523CF841F430C22005FAC8A /* MenuScene.swift in Sources */,
 				95CBD36E1F39AA27006156A2 /* GameViewController.swift in Sources */,
 				95CBD3661F39AA27006156A2 /* AppDelegate.swift in Sources */,
 			);
@@ -315,7 +323,7 @@
 				95CBD3791F39AA27006156A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		95CBD37A1F39AA27006156A2 /* Build configuration list for PBXNativeTarget "SimonsCat" */ = {
 			isa = XCConfigurationList;
@@ -324,7 +332,7 @@
 				95CBD37C1F39AA27006156A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

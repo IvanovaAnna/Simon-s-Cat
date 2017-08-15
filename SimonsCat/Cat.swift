@@ -15,10 +15,10 @@ class Cat: SKSpriteNode {
     let motionManager = CMMotionManager()
     var xAcceleration: CGFloat = 0
     let screenSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-    var forwardTextureArrayAnimation = [SKTexture]()
+    var animationSpriteArray = [SKTexture]()
     
     static func populate(at point: CGPoint) -> Cat {
-        let catTexture = SKTexture(imageNamed: "SimonsCat5")
+        let catTexture = Assets.shared.simonsCatAtlas.textureNamed("SimonsCat5")
         let cat = Cat(texture: catTexture)
         cat.setScale(0.4)
         cat.position = point
@@ -38,7 +38,6 @@ class Cat: SKSpriteNode {
     }
     
     func performMove () {
-        catAnimationFillArray ()
         //how often to measure the acceleration
         motionManager.accelerometerUpdateInterval = 0.2
         motionManager.startAccelerometerUpdates(to: OperationQueue.current!) { [unowned self] (data, error) in
@@ -50,40 +49,26 @@ class Cat: SKSpriteNode {
                 self.xAcceleration = CGFloat(acceleration.x) * 0.7 + self.xAcceleration * 0.3
             }
         }
-        
-        let catWaitAction = SKAction.wait(forDuration: 1.0)
-        let catDirectionCheckAction = SKAction.run { [unowned self] in
-            self.moveCat()
-        }
-        let catSequence = SKAction.sequence([catWaitAction, catDirectionCheckAction])
-        let catSequenceForever = SKAction.repeatForever(catSequence)
-        self.run(catSequenceForever)
+        moveCat()
     }
     
     //add pictures to the array
     fileprivate  func catAnimationFillArray () {
-        SKTextureAtlas.preloadTextureAtlases([SKTextureAtlas(named: "SimonsCat")]) {
-            self.forwardTextureArrayAnimation = {
-                var array = [SKTexture] ()
-                for i in stride(from: 1, through: 9, by: 1) {
-                    let number = String(format: "%d", i)
-                    let texture = SKTexture(imageNamed: "SimonsCat\(number)")
-                    array.append(texture)
-                }
-                SKTexture.preload(array, withCompletionHandler: {
-//                    print("preload is done")
-                })
-                return array
-            } ()
+        for i in 1...9 {
+            let number = String(format: "%d", i)
+            let texture = Assets.shared.simonsCatAtlas.textureNamed("SimonsCat\(number)")
+            animationSpriteArray.append(texture)
         }
     }
     
     fileprivate func moveCat() {
+        catAnimationFillArray ()
         //animation in both directions
-        let forwardAction = SKAction.animate(with: forwardTextureArrayAnimation, timePerFrame: 0.05, resize: true, restore: false)
-        let backwardAction = SKAction.animate(with: forwardTextureArrayAnimation.reversed(), timePerFrame: 0.05, resize: true, restore: false)
+        let forwardAction = SKAction.animate(with: self.animationSpriteArray, timePerFrame: 0.08, resize: true, restore: false)
+        let backwardAction = SKAction.animate(with: self.animationSpriteArray.reversed(), timePerFrame: 0.08, resize: true, restore: false)
         let sequenceAction = SKAction.sequence([forwardAction, backwardAction])
-        run(sequenceAction)
+        let moveForever = SKAction.repeatForever(sequenceAction)
+        self.run(moveForever)
     }
 }
 
