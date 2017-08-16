@@ -11,7 +11,9 @@ import GameplayKit
 
 class ObjectsOnTheFloor: SKSpriteNode {
     
-    //add random point
+    
+    // MARK: - Add random point
+    
     static func randomPoint () -> CGPoint {
         let screen = UIScreen.main.bounds
         //above the screen for 50-100
@@ -24,12 +26,15 @@ class ObjectsOnTheFloor: SKSpriteNode {
         return CGPoint(x: x, y: y)
     }
     
-    //add objects
+    
+    // MARK: - Add objects
+    
     static func populate (at point: CGPoint? ) -> ObjectsOnTheFloor {
         
-        let objectTexture = Assets.shared.foodOrNotFood.textureNamed(configuraObjectsName().imageName)
+        let nameObject = configuraObjectsName ()
+        let objectTexture = Assets.shared.foodOrNotFood.textureNamed(nameObject)
         let object = ObjectsOnTheFloor(texture: objectTexture)
-        
+
         object.setScale(0.3)
         //if no point - a random point
         object.position = point ?? randomPoint()
@@ -40,26 +45,33 @@ class ObjectsOnTheFloor: SKSpriteNode {
         object.anchorPoint = CGPoint(x: 0.5, y: 1.0)
         object.run(move(from: object.position))
         
-        //physics body
+        
+        // MARK: - Physics body
+        
         object.physicsBody = SKPhysicsBody(texture: objectTexture, alphaThreshold: 0.5, size: object.size)
         //move in a collision
         object.physicsBody?.isDynamic = true
         
-         //bit mask cat
-        let objectfood = configuraObjectsName().thisIsFood
-        if objectfood == true {
+        //food or not food
+        var nameObjectArray = [ String]()
+        for character in nameObject.characters {
+            nameObjectArray.append(String(character))
+        }
+        //bit mask object
+        if nameObjectArray.first == "f" {
             object.physicsBody?.categoryBitMask =  BitMaskCategory.food
-        } else {
+        } else if nameObjectArray.first == "n" {
             object.physicsBody?.categoryBitMask = BitMaskCategory.notFood
         }
         object.physicsBody?.collisionBitMask = BitMaskCategory.cat
         object.physicsBody?.contactTestBitMask = BitMaskCategory.cat
-        
         return object
     }
     
-    //random number for objects
-    fileprivate static func configuraObjectsName () -> (imageName: String, thisIsFood: Bool) {
+    
+    // MARK: - Random number for objects
+    
+    fileprivate static func configuraObjectsName () -> (String) {
         
         let distributionImg = GKRandomDistribution(lowestValue: 1, highestValue: 4)
         let randomNumber = distributionImg.nextInt()
@@ -68,19 +80,17 @@ class ObjectsOnTheFloor: SKSpriteNode {
         let foodOrNotFood = distributionfoodOrNotFood.nextInt()
         
         var imageName = String()
-        var thisIsFood = Bool()
         if foodOrNotFood == 1 {
-            imageName = "notFood" + "\(randomNumber)"
-            thisIsFood = false
-        } else {
             imageName = "food" + "\(randomNumber)"
-            thisIsFood = true
+        } else if foodOrNotFood == 2{
+            imageName = "notFood" + "\(randomNumber)"
         }
-        print(thisIsFood)
-        return (imageName, thisIsFood)
+        return (imageName)
     }
     
-    //move the object vertically
+    
+    // MARK: - Move the object vertically
+
     fileprivate static func move(from point: CGPoint) -> SKAction {
         let movePoint = CGPoint(x: point.x, y: -200)
         let moveDistance = point.y + 200
@@ -89,6 +99,4 @@ class ObjectsOnTheFloor: SKSpriteNode {
         return SKAction.move(to: movePoint, duration: TimeInterval(duratiom))
         
     }
-    
-
 }

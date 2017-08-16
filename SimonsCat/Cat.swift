@@ -17,6 +17,9 @@ class Cat: SKSpriteNode {
     let screenSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     var animationSpriteArray = [SKTexture]()
     
+    
+    // MARK: - Add cat
+    
     static func populate(at point: CGPoint) -> Cat {
         let catTexture = Assets.shared.simonsCatAtlas.textureNamed("SimonsCat5")
         let cat = Cat(texture: catTexture)
@@ -24,7 +27,9 @@ class Cat: SKSpriteNode {
         cat.position = point
         cat.zPosition = 10
         
-        //physics body
+        
+        // MARK: - Physics body
+
         cat.physicsBody = SKPhysicsBody(texture: catTexture, alphaThreshold: 0.5, size: cat.size)
         //not move in a collision
         cat.physicsBody?.isDynamic = false
@@ -37,6 +42,8 @@ class Cat: SKSpriteNode {
         return cat
     }
     
+    // MARK: - Left and right move
+    
     func checkPosition () {
         //moving the cat
         self.position.x += xAcceleration * 50
@@ -47,6 +54,9 @@ class Cat: SKSpriteNode {
             self.position.x = -70
         }
     }
+    
+    
+    // MARK: - Accelerometer
     
     func performMove () {
         //how often to measure the acceleration
@@ -63,7 +73,9 @@ class Cat: SKSpriteNode {
         moveCat()
     }
     
-    //add pictures to the array
+    
+    // MARK: - Add pictures to the array
+
     fileprivate  func catAnimationFillArray () {
         for i in 1...9 {
             let number = String(format: "%d", i)
@@ -71,6 +83,9 @@ class Cat: SKSpriteNode {
             animationSpriteArray.append(texture)
         }
     }
+    
+    
+    // MARK: - Animation cat
     
     fileprivate func moveCat() {
         catAnimationFillArray ()

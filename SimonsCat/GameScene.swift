@@ -10,8 +10,11 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-
+    
     var player: Cat!
+    
+    
+    // MARK: - func didMove
     
     override func didMove(to view: SKView) {
         
@@ -24,7 +27,9 @@ class GameScene: SKScene {
         player.performMove()
     }
     
-    //add new objects
+    
+    // MARK: - Add new objects
+    
     fileprivate func spawnObjectsOnTheFloor () {
         //pause
         let ramdomTime = Double(arc4random_uniform(6) + 2)
@@ -39,10 +44,12 @@ class GameScene: SKScene {
         run(spawnObjectForever)
     }
     
+    
+    // MARK: - Scene configuration
+    
     fileprivate func configureStartScene () {
         //add background
         self.backgroundColor = SKColor.white
-        
         let screen = UIScreen.main.bounds
         
         //add starting item
@@ -53,6 +60,9 @@ class GameScene: SKScene {
         player = Cat.populate(at: CGPoint(x: screen.size.width / 2, y: 150))
         self.addChild(player)
     }
+    
+    
+    // MARK: - func didSimulatePhysics
     
     override func didSimulatePhysics() {
         player.checkPosition()
@@ -65,13 +75,26 @@ class GameScene: SKScene {
     }
 }
 
+
+    // MARK: - Physics contact
+
 extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        print("contact detected")
+        let bodyA = contact.bodyA.categoryBitMask
+        let bodyB = contact.bodyB.categoryBitMask
+        let cat = BitMaskCategory.cat
+        let food = BitMaskCategory.food
+        let notFood = BitMaskCategory.notFood
+        
+        if bodyA == cat  && bodyB == notFood || bodyB == cat  && bodyA == notFood {
+            print("cat vs notFood")
+        } else if bodyA == cat  && bodyB == food || bodyB == cat  && bodyA == food {
+            print("cat vs food")
+        }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
-
+        
     }
 }
 
