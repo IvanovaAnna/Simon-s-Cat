@@ -23,6 +23,17 @@ class Cat: SKSpriteNode {
         cat.setScale(0.4)
         cat.position = point
         cat.zPosition = 10
+        
+        //physics body
+        cat.physicsBody = SKPhysicsBody(texture: catTexture, alphaThreshold: 0.5, size: cat.size)
+        //not move in a collision
+        cat.physicsBody?.isDynamic = false
+        //bit mask cat
+        cat.physicsBody?.categoryBitMask = BitMaskCategory.cat
+        //bit mask food for a collision
+        cat.physicsBody?.collisionBitMask = BitMaskCategory.notFood | BitMaskCategory.food
+        cat.physicsBody?.contactTestBitMask = BitMaskCategory.notFood | BitMaskCategory.food
+        
         return cat
     }
     

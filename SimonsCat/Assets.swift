@@ -11,9 +11,10 @@ import SpriteKit
 class Assets {
     static let shared = Assets ( )
     let simonsCatAtlas = SKTextureAtlas(named: "SimonsCat")
+    let foodOrNotFood = SKTextureAtlas(named: "FoodOrNotFood")
+    
     func preloadAtlas ( ) {
-        simonsCatAtlas.preload {
-            print("preload Atlas")
-        }
+        simonsCatAtlas.preload { }
+        foodOrNotFood.preload { }
     }
 }

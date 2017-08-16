@@ -14,6 +14,11 @@ class GameScene: SKScene {
     var player: Cat!
     
     override func didMove(to view: SKView) {
+        
+        physicsWorld.contactDelegate = self
+        //without gravity
+        physicsWorld.gravity = CGVector.zero
+        
         configureStartScene ()
         spawnObjectsOnTheFloor ()
         player.performMove()
@@ -57,6 +62,16 @@ class GameScene: SKScene {
                 node.removeFromParent()
             }
         }
+    }
+}
+
+extension GameScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        print("contact detected")
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+
     }
 }
 

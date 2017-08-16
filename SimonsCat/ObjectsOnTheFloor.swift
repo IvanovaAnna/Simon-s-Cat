@@ -26,9 +26,11 @@ class ObjectsOnTheFloor: SKSpriteNode {
     
     //add objects
     static func populate (at point: CGPoint? ) -> ObjectsOnTheFloor {
-        let objectImageName = configuraObjectsName().imageName
-        let object = ObjectsOnTheFloor(imageNamed: objectImageName)
-        object.setScale(0.8)
+        
+        let objectTexture = Assets.shared.foodOrNotFood.textureNamed(configuraObjectsName().imageName)
+        let object = ObjectsOnTheFloor(texture: objectTexture)
+        
+        object.setScale(0.3)
         //if no point - a random point
         object.position = point ?? randomPoint()
         object.zPosition = 10
@@ -37,6 +39,22 @@ class ObjectsOnTheFloor: SKSpriteNode {
         //move the middle up (y) for removing
         object.anchorPoint = CGPoint(x: 0.5, y: 1.0)
         object.run(move(from: object.position))
+        
+        //physics body
+        object.physicsBody = SKPhysicsBody(texture: objectTexture, alphaThreshold: 0.5, size: object.size)
+        //move in a collision
+        object.physicsBody?.isDynamic = true
+        
+         //bit mask cat
+        let objectfood = configuraObjectsName().thisIsFood
+        if objectfood == true {
+            object.physicsBody?.categoryBitMask =  BitMaskCategory.food
+        } else {
+            object.physicsBody?.categoryBitMask = BitMaskCategory.notFood
+        }
+        object.physicsBody?.collisionBitMask = BitMaskCategory.cat
+        object.physicsBody?.contactTestBitMask = BitMaskCategory.cat
+        
         return object
     }
     
@@ -70,15 +88,6 @@ class ObjectsOnTheFloor: SKSpriteNode {
         let duratiom = moveDistance / movementSpeed
         return SKAction.move(to: movePoint, duration: TimeInterval(duratiom))
         
-    }
-    
-    fileprivate static func food() {
-        let objectfood = configuraObjectsName().thisIsFood
-        if objectfood == true {
-            
-        } else {
-            
-        }
     }
     
 
