@@ -12,6 +12,12 @@ import GameplayKit
 class GameScene: SKScene {
     
     var player: Cat!
+    let scoreBackground = SKSpriteNode(imageNamed: "label_red")
+    let scoreLabel = SKLabelNode(text: "1000")
+    let menuButton = SKSpriteNode(imageNamed: "menu")
+    let life1 = SKSpriteNode(imageNamed: "heart")
+    let life2 = SKSpriteNode(imageNamed: "heart")
+    let life3 = SKSpriteNode(imageNamed: "heart")
     
     
     // MARK: - func didMove
@@ -25,6 +31,45 @@ class GameScene: SKScene {
         configureStartScene ()
         spawnObjectsOnTheFloor ()
         player.performMove()
+        configureUI ()
+    }
+    
+    
+    // MARK: - ConfigureUI
+    
+    fileprivate func configureUI () {
+        //add label background
+        scoreBackground.setScale(0.6)
+        scoreBackground.position = CGPoint(x: scoreBackground.size.width + 5, y: self.size.height - scoreBackground.size.height / 2 - 5)
+        scoreBackground.anchorPoint = CGPoint(x: 1.0, y: 0.5)
+        scoreBackground.zPosition = 90
+        
+        addChild(scoreBackground)
+        
+        //add label text
+        scoreLabel.horizontalAlignmentMode = .right
+        scoreLabel.verticalAlignmentMode = .center
+        scoreLabel.position = CGPoint(x: -12, y: 0)
+        scoreLabel.zPosition = 100
+        scoreLabel.fontName = "ChalkboardSE-Bold"
+        scoreLabel.fontSize = 30
+        scoreBackground.addChild(scoreLabel)
+        
+        //add menu
+        menuButton.position = CGPoint(x: 5, y: 5)
+        menuButton.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        menuButton.zPosition = 100
+        menuButton.setScale(0.5)
+        addChild(menuButton)
+        
+        let lifes = [life1, life2, life3]
+        for (index, life) in lifes.enumerated() {
+            life.setScale(0.3)
+            life.position = CGPoint(x: self.size.width - CGFloat(index + 1) * (life.size.width + 3), y: 5)
+            life.zPosition = 100
+            life.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+            addChild(life)
+        }
     }
     
     
@@ -80,16 +125,12 @@ class GameScene: SKScene {
 
 extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        let bodyA = contact.bodyA.categoryBitMask
-        let bodyB = contact.bodyB.categoryBitMask
-        let cat = BitMaskCategory.cat
-        let food = BitMaskCategory.food
-        let notFood = BitMaskCategory.notFood
-        
-        if bodyA == cat  && bodyB == notFood || bodyB == cat  && bodyA == notFood {
-            print("cat vs notFood")
-        } else if bodyA == cat  && bodyB == food || bodyB == cat  && bodyA == food {
-            print("cat vs food")
+        let contactCategory: BitMaskCategory = [contact.bodyA.category, contact.bodyB.category]
+        switch contactCategory {
+        case [.cat, .notFood]: print("cat vs notFood")
+            case [.cat, .food]: print("cat vs food")
+        default:
+            preconditionFailure("Unable to detect collision category")
         }
     }
     

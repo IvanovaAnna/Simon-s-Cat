@@ -34,10 +34,10 @@ class Cat: SKSpriteNode {
         //not move in a collision
         cat.physicsBody?.isDynamic = false
         //bit mask cat
-        cat.physicsBody?.categoryBitMask = BitMaskCategory.cat
+        cat.physicsBody?.categoryBitMask = BitMaskCategory.cat.rawValue
         //bit mask food for a collision
-        cat.physicsBody?.collisionBitMask = BitMaskCategory.notFood | BitMaskCategory.food
-        cat.physicsBody?.contactTestBitMask = BitMaskCategory.notFood | BitMaskCategory.food
+        cat.physicsBody?.collisionBitMask = BitMaskCategory.notFood.rawValue | BitMaskCategory.food.rawValue
+        cat.physicsBody?.contactTestBitMask = BitMaskCategory.notFood.rawValue | BitMaskCategory.food.rawValue
         
         return cat
     }

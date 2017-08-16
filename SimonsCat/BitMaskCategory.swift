@@ -6,13 +6,22 @@
 //  Copyright © 2017 Anna. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
-struct BitMaskCategory {
-    //000000000....01
-    static let cat: UInt32 = 0x1 << 0
-    //000000000....10
-    static let food: UInt32 = 0x1 << 1
-    //000000000...100
-    static let notFood: UInt32 = 0x1 << 2
+extension SKPhysicsBody {
+    var category: BitMaskCategory {
+        get {
+            return BitMaskCategory(rawValue: self.categoryBitMask)
+        }
+        set {
+            self.categoryBitMask = newValue.rawValue
+        }
+    }
+}
+
+struct BitMaskCategory: OptionSet {
+    let rawValue: UInt32
+    static let cat = BitMaskCategory(rawValue: 1 << 0)
+    static let food = BitMaskCategory(rawValue: 1 << 1)
+    static let notFood = BitMaskCategory(rawValue: 1 << 2)
 }

@@ -59,12 +59,12 @@ class ObjectsOnTheFloor: SKSpriteNode {
         }
         //bit mask object
         if nameObjectArray.first == "f" {
-            object.physicsBody?.categoryBitMask =  BitMaskCategory.food
+            object.physicsBody?.categoryBitMask =  BitMaskCategory.food.rawValue
         } else if nameObjectArray.first == "n" {
-            object.physicsBody?.categoryBitMask = BitMaskCategory.notFood
+            object.physicsBody?.categoryBitMask = BitMaskCategory.notFood.rawValue
         }
-        object.physicsBody?.collisionBitMask = BitMaskCategory.cat
-        object.physicsBody?.contactTestBitMask = BitMaskCategory.cat
+        object.physicsBody?.collisionBitMask = BitMaskCategory.cat.rawValue
+        object.physicsBody?.contactTestBitMask = BitMaskCategory.cat.rawValue
         return object
     }
     
