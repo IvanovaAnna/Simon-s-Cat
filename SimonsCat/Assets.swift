@@ -10,6 +10,7 @@ import SpriteKit
 
 class Assets {
     static let shared = Assets ( )
+    var isLoaded = false
     let simonsCatAtlas = SKTextureAtlas(named: "SimonsCat")
     let foodOrNotFood = SKTextureAtlas(named: "FoodOrNotFood")
     

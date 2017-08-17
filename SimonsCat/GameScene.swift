@@ -14,6 +14,26 @@ class GameScene: SKScene {
     fileprivate var player: Cat!
     fileprivate let gameInterface = GameInterface ()
     fileprivate let screenSize = UIScreen.main.bounds.size
+    fileprivate var lives = 3 {
+        didSet {
+            switch lives {
+            case 3:
+                gameInterface.life1.isHidden = false
+                gameInterface.life2.isHidden = false
+                gameInterface.life3.isHidden = false
+            case 2:
+                gameInterface.life1.isHidden = false
+                gameInterface.life2.isHidden = false
+                gameInterface.life3.isHidden = true
+            case 1:
+                gameInterface.life1.isHidden = false
+                gameInterface.life2.isHidden = true
+                gameInterface.life3.isHidden = true
+            default:
+                break
+            }
+        }
+    }
     
     
     // MARK: - func didMove
@@ -83,14 +103,31 @@ class GameScene: SKScene {
 }
 
 
-    // MARK: - Physics contact
+// MARK: - Physics contact
 
 extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         let contactCategory: BitMaskCategory = [contact.bodyA.category, contact.bodyB.category]
         switch contactCategory {
         case [.cat, .notFood]: print("cat vs notFood")
-            case [.cat, .food]: print("cat vs food")
+        if contact.bodyA.node?.name == "оbjectsOnTheFloor" {
+            if contact.bodyA.node?.parent != nil {
+                contact.bodyA.node?.removeFromParent()
+                lives -= 1
+            }
+        } else if contact.bodyB.node?.name == "оbjectsOnTheFloor" {
+            if contact.bodyB.node?.parent != nil {
+                contact.bodyB.node?.removeFromParent()
+                lives -= 1
+            }
+            print(lives)
+        }
+        case [.cat, .food]: print("cat vs food")
+        if contact.bodyA.node?.name == "оbjectsOnTheFloor" {
+            contact.bodyA.node?.removeFromParent()
+        } else if contact.bodyB.node?.name == "оbjectsOnTheFloor" {
+            contact.bodyB.node?.removeFromParent()
+            }
         default:
             preconditionFailure("Unable to detect collision category")
         }

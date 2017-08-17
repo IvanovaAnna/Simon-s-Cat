@@ -63,7 +63,7 @@ class ObjectsOnTheFloor: SKSpriteNode {
         } else if nameObjectArray.first == "n" {
             object.physicsBody?.categoryBitMask = BitMaskCategory.notFood.rawValue
         }
-        object.physicsBody?.collisionBitMask = BitMaskCategory.cat.rawValue
+        object.physicsBody?.collisionBitMask = BitMaskCategory.none.rawValue
         object.physicsBody?.contactTestBitMask = BitMaskCategory.cat.rawValue
         return object
     }

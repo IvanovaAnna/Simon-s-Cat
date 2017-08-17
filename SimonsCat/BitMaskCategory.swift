@@ -21,7 +21,10 @@ extension SKPhysicsBody {
 
 struct BitMaskCategory: OptionSet {
     let rawValue: UInt32
+    
+    static let none = BitMaskCategory(rawValue: 0 << 0)
     static let cat = BitMaskCategory(rawValue: 1 << 0)
     static let food = BitMaskCategory(rawValue: 1 << 1)
     static let notFood = BitMaskCategory(rawValue: 1 << 2)
+    static let all = BitMaskCategory(rawValue: UInt32.max)
 }
