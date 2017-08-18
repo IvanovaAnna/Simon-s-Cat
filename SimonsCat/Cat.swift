@@ -46,12 +46,12 @@ class Cat: SKSpriteNode {
     
     func checkPosition () {
         //moving the cat
-        self.position.x += xAcceleration * 50
+        self.position.x += xAcceleration * 40
         //If the cat goes behind the screen - appears on the other side
-        if self.position.x < -70 {
-            self.position.x = screenSize.width + 70
-        } else if self.position.x > screenSize.width + 70 {
-            self.position.x = -70
+        if self.position.x < -40 {
+            self.position.x = screenSize.width + 40
+        } else if self.position.x > screenSize.width + 40 {
+            self.position.x = -40
         }
     }
     
@@ -67,7 +67,7 @@ class Cat: SKSpriteNode {
                 let acceleration = data.acceleration
                 //acceleration from inclination
                 //Coefficient for nonlinearity
-                self.xAcceleration = CGFloat(acceleration.x) * 0.7 + self.xAcceleration * 0.3
+                self.xAcceleration = CGFloat(acceleration.x) * 0.4
             }
         }
         moveCat()

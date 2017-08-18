@@ -35,7 +35,7 @@ class ObjectsOnTheFloor: SKSpriteNode {
         let objectTexture = Assets.shared.foodOrNotFood.textureNamed(nameObject)
         let object = ObjectsOnTheFloor(texture: objectTexture)
 
-        object.setScale(0.3)
+        object.setScale(0.4)
         //if no point - a random point
         object.position = point ?? randomPoint()
         object.zPosition = 10
@@ -73,7 +73,7 @@ class ObjectsOnTheFloor: SKSpriteNode {
     
     fileprivate static func configuraObjectsName () -> (String) {
         
-        let distributionImg = GKRandomDistribution(lowestValue: 1, highestValue: 4)
+        let distributionImg = GKRandomDistribution(lowestValue: 1, highestValue: 6)
         let randomNumber = distributionImg.nextInt()
         
         let distributionfoodOrNotFood = GKRandomDistribution(lowestValue: 1, highestValue: 2)
