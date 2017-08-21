@@ -15,6 +15,7 @@
 		9523D0361F4ABDA4005FAC8A /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523D0351F4ABDA4005FAC8A /* ButtonNode.swift */; };
 		9523D0381F4AC8E2005FAC8A /* PauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523D0371F4AC8E2005FAC8A /* PauseScene.swift */; };
 		9523D03A1F4AD348005FAC8A /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523D0391F4AD348005FAC8A /* SceneManager.swift */; };
+		9523D03C1F4B3E52005FAC8A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523D03B1F4B3E52005FAC8A /* GameOverScene.swift */; };
 		95516C361F3B35660017CACF /* SimonsCat.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 95516C351F3B35660017CACF /* SimonsCat.atlas */; };
 		95CBD3661F39AA27006156A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CBD3651F39AA27006156A2 /* AppDelegate.swift */; };
 		95CBD36C1F39AA27006156A2 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CBD36B1F39AA27006156A2 /* GameScene.swift */; };
@@ -35,6 +36,7 @@
 		9523D0351F4ABDA4005FAC8A /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
 		9523D0371F4AC8E2005FAC8A /* PauseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseScene.swift; sourceTree = "<group>"; };
 		9523D0391F4AD348005FAC8A /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
+		9523D03B1F4B3E52005FAC8A /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		95516C351F3B35660017CACF /* SimonsCat.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SimonsCat.atlas; sourceTree = "<group>"; };
 		95CBD3621F39AA27006156A2 /* SimonsCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimonsCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95CBD3651F39AA27006156A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				9523CF831F430C22005FAC8A /* MenuScene.swift */,
 				95CBD36B1F39AA27006156A2 /* GameScene.swift */,
 				9523D0371F4AC8E2005FAC8A /* PauseScene.swift */,
+				9523D03B1F4B3E52005FAC8A /* GameOverScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				95CBD36C1F39AA27006156A2 /* GameScene.swift in Sources */,
 				95CBD3821F39E9C9006156A2 /* Cat.swift in Sources */,
 				9523CF841F430C22005FAC8A /* MenuScene.swift in Sources */,
+				9523D03C1F4B3E52005FAC8A /* GameOverScene.swift in Sources */,
 				95CBD36E1F39AA27006156A2 /* GameViewController.swift in Sources */,
 				95CBD3661F39AA27006156A2 /* AppDelegate.swift in Sources */,
 				9523D03A1F4AD348005FAC8A /* SceneManager.swift in Sources */,

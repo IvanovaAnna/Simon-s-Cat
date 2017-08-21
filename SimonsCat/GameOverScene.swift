@@ -1,5 +1,5 @@
 //
-//  PauseScene.swift
+//  GameOverScene.swift
 //  SimonsCat
 //
 //  Created by Anna on 21.08.17.
@@ -8,9 +8,10 @@
 
 import SpriteKit
 
-class PauseScene: SKScene {
+class GameOverScene: SKScene {
     
     let sceneManager = SceneManager.shared
+    var places = [10, 100, 1000]
     
     override func didMove(to view: SKView) {
         
@@ -19,14 +20,11 @@ class PauseScene: SKScene {
         
         // MARK: - Button
         
-        let titles = ["restart", "resume"]
-        for (index, title) in titles.enumerated() {
-            let button = ButtonNode(titled: title, backgroundName: "button")
-            button.position = CGPoint(x: self.frame.midX, y: self.frame.maxY - CGFloat(100 * (index + 1)))
-            button.name = title
-            button.label.name = title
-            addChild(button)
-        }
+        let restart = ButtonNode(titled: "restart", backgroundName: "button")
+        restart.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        restart.name = "restart"
+        restart.label.name = "restart"
+        addChild(restart)
         
         
         // MARK: - BG cat
@@ -35,14 +33,25 @@ class PauseScene: SKScene {
         let backgroundCat = SKSpriteNode(texture: textureCat)
         backgroundCat.position = CGPoint(x: self.frame.midX, y: 100.0)
         self.addChild(backgroundCat)
-    }
-    
-    //debug pause
-    override func update(_ currentTime: TimeInterval) {
-        if let gameScene = sceneManager.gameScene {
-            if !gameScene.isPaused {
-                gameScene.isPaused = true
-            }
+        
+        
+        // MARK: - Best
+        
+        let top =  SKLabelNode(text: "Best:")
+        top.fontColor = UIColor.white
+        top.fontName = "ChalkboardSE-Light"
+        top.fontSize = 20
+        top.position = CGPoint(x: self.frame.midX, y: self.frame.maxY - 30)
+        addChild(top)
+        
+        let topPlaces = places.sorted { $0  > $1 } .prefix(3)
+        for (index, value) in topPlaces.enumerated() {
+            let l = SKLabelNode(text: value.description)
+            l.fontColor = UIColor.white
+            l.fontName = "ChalkboardSE-Light"
+            l.fontSize = 20
+            l.position = CGPoint(x: self.frame.midX, y: self.frame.maxY - CGFloat((index + 2) * 30))
+            addChild(l)
         }
     }
     
@@ -62,15 +71,6 @@ class PauseScene: SKScene {
             let gameScene = GameScene(size: self.size)
             gameScene.scaleMode = .aspectFill
             self.scene!.view?.presentScene(gameScene, transition: transition)
-            
-            //if you press the button "resume"
-        } else if node.name == "resume" {
-            //transition animation
-            let transition = SKTransition.crossFade(withDuration: 1.0)
-            guard let gameScene = sceneManager.gameScene else { return }
-            gameScene.scaleMode = .aspectFill
-            self.scene!.view?.presentScene(gameScene, transition: transition)
         }
     }
-
 }

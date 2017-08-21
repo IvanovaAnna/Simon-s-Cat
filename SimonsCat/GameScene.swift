@@ -111,6 +111,8 @@ class GameScene: SKScene {
     }
     
     
+    // MARK: - Touch button pause
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //area where the touch occurs
         let location = touches.first!.location(in: self)
@@ -151,8 +153,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 contact.bodyB.node?.removeFromParent()
                 lives -= 1
             }
-            print(lives)
-        }
+            }
         case [.cat, .food]: print("cat vs food")
         if contact.bodyA.node?.name == "оbjectsOnTheFloor" {
             contact.bodyA.node?.removeFromParent()
@@ -161,6 +162,12 @@ extension GameScene: SKPhysicsContactDelegate {
             }
         default:
             preconditionFailure("Unable to detect collision category")
+        }
+        if lives == 0 {
+            let gameOverScene = GameOverScene(size: self.size)
+            let transition = SKTransition.crossFade(withDuration: 1.0)
+            gameOverScene.scaleMode = .aspectFill
+            self.scene?.view?.presentScene(gameOverScene, transition: transition)
         }
     }
     
