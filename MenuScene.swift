@@ -17,18 +17,23 @@ class MenuScene: SKScene {
         }
         
         self.backgroundColor = SKColor(red: 210 / 255, green: 56 / 255, blue: 54 / 255, alpha: 1.0)
-        let texture = SKTexture(imageNamed: "playbutton")
-        let button = SKSpriteNode(texture: texture)
-        //middle of the screen
-        button.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        button.setScale(0.5)
-        button.name = "runButton"
+        
+        let textureHeader = SKTexture(imageNamed: "logo")
+        let header = SKSpriteNode(texture: textureHeader)
+        header.position = CGPoint(x: self.frame.midX, y: self.size.height - 50)
+        header.anchorPoint = CGPoint(x: 0.5, y: 1)
+        header.setScale(0.8)
+        self.addChild(header)
+        
+        let button1 = ButtonNode(titled: "play", backgroundName: "button")
+        button1.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        button1.name = "play"
+        button1.label.name = "play"
+        addChild(button1)
         
         let textureCat = SKTexture(imageNamed: "cat_bg_first_screen")
         let backgroundCat = SKSpriteNode(texture: textureCat)
         backgroundCat.position = CGPoint(x: self.frame.midX, y: 100.0)
-        
-        self.addChild(button)
         self.addChild(backgroundCat)
     }
     
@@ -38,7 +43,7 @@ class MenuScene: SKScene {
         //object in touch
         let node = self.atPoint(location)
         //if you press the button
-        if node.name == "runButton" {
+        if node.name == "play" {
             //transition animation
             let transition = SKTransition.crossFade(withDuration: 1.0)
             let gameScene = GameScene(size: self.size)

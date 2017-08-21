@@ -11,6 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    let sceneManager = SceneManager.shared
+    
     fileprivate var player: Cat!
     fileprivate let gameInterface = GameInterface ()
     fileprivate let screenSize = UIScreen.main.bounds.size
@@ -39,6 +41,13 @@ class GameScene: SKScene {
     // MARK: - func didMove
     
     override func didMove(to view: SKView) {
+        
+        //turn off pause
+        self.scene?.isPaused = false
+        
+        //checking if scene persists
+        guard sceneManager.gameScene == nil  else { return }
+        sceneManager.gameScene = self
         
         physicsWorld.contactDelegate = self
         //without gravity
@@ -100,6 +109,28 @@ class GameScene: SKScene {
             }
         }
     }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //area where the touch occurs
+        let location = touches.first!.location(in: self)
+        //object in touch
+        let node = self.atPoint(location)
+        //if you press the button
+        if node.name == "pause" {
+            //transition animation
+            let transition = SKTransition.crossFade(withDuration: 1.0)
+            let pauseScene = PauseScene(size: self.size)
+            pauseScene.scaleMode = .aspectFill
+            //save scene
+            sceneManager.gameScene = self
+            //turn on pause
+            self.scene?.isPaused = true
+            //transition
+            self.scene!.view?.presentScene(pauseScene, transition: transition)
+        }
+    }
+    
 }
 
 

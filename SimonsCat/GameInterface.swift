@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameInterface: SKScene {
+class GameInterface: SKNode {
     
     let scoreBackground = SKSpriteNode(imageNamed: "label_red")
     let scoreLabel = SKLabelNode(text: "1000")
@@ -43,6 +43,7 @@ class GameInterface: SKScene {
         menuButton.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         menuButton.zPosition = 100
         menuButton.setScale(0.5)
+        menuButton.name = "pause"
         addChild(menuButton)
         
         let lifes = [life1, life2, life3]
