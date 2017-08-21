@@ -11,7 +11,12 @@ import SpriteKit
 class GameInterface: SKNode {
     
     let scoreBackground = SKSpriteNode(imageNamed: "label_red")
-    let scoreLabel = SKLabelNode(text: "1000")
+    let scoreLabel = SKLabelNode(text: "0")
+    var score: Int = 0 {
+        didSet {
+            scoreLabel.text = score.description
+        }
+    }
     let menuButton = SKSpriteNode(imageNamed: "menu")
     let life1 = SKSpriteNode(imageNamed: "heart")
     let life2 = SKSpriteNode(imageNamed: "heart")

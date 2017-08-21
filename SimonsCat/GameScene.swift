@@ -139,8 +139,11 @@ class GameScene: SKScene {
 // MARK: - Physics contact
 
 extension GameScene: SKPhysicsContactDelegate {
+    
     func didBegin(_ contact: SKPhysicsContact) {
+        
         let contactCategory: BitMaskCategory = [contact.bodyA.category, contact.bodyB.category]
+        
         switch contactCategory {
         case [.cat, .notFood]: print("cat vs notFood")
         if contact.bodyA.node?.name == "оbjectsOnTheFloor" {
@@ -157,8 +160,10 @@ extension GameScene: SKPhysicsContactDelegate {
         case [.cat, .food]: print("cat vs food")
         if contact.bodyA.node?.name == "оbjectsOnTheFloor" {
             contact.bodyA.node?.removeFromParent()
+            gameInterface.score += 10
         } else if contact.bodyB.node?.name == "оbjectsOnTheFloor" {
             contact.bodyB.node?.removeFromParent()
+            gameInterface.score += 10
             }
         default:
             preconditionFailure("Unable to detect collision category")
