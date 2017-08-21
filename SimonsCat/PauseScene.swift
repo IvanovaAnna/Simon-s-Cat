@@ -16,12 +16,6 @@ class PauseScene: SKScene {
         
         self.backgroundColor = SKColor(red: 210 / 255, green: 56 / 255, blue: 54 / 255, alpha: 1.0)
         
-//        let header = SKSpriteNode(imageNamed: "logo")
-//        header.position = CGPoint(x: self.frame.midX, y: self.size.height - 50)
-//        header.anchorPoint = CGPoint(x: 0.5, y: 1)
-//        header.setScale(0.8)
-//        self.addChild(header)
-        
         let titles = ["restart", "resume"]
         for (index, title) in titles.enumerated() {
             let button = ButtonNode(titled: title, backgroundName: "button")
@@ -37,12 +31,21 @@ class PauseScene: SKScene {
         self.addChild(backgroundCat)
     }
     
+    //debug pause
+    override func update(_ currentTime: TimeInterval) {
+        if let gameScene = sceneManager.gameScene {
+            if !gameScene.isPaused {
+                gameScene.isPaused = true
+            }
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //area where the touch occurs
         let location = touches.first!.location(in: self)
         //object in touch
         let node = self.atPoint(location)
-        //if you press the button
+        //if you press the button "restart"
         if node.name == "restart" {
             sceneManager.gameScene = nil
             //transition animation
@@ -51,6 +54,7 @@ class PauseScene: SKScene {
             gameScene.scaleMode = .aspectFill
             self.scene!.view?.presentScene(gameScene, transition: transition)
             
+            //if you press the button "resume"
         } else if node.name == "resume" {
             //transition animation
             let transition = SKTransition.crossFade(withDuration: 1.0)
