@@ -11,9 +11,13 @@ import SpriteKit
 class GameOverScene: SKScene {
     
     let sceneManager = SceneManager.shared
-    var places = [10, 100, 1000]
+    let score = Best ()
+    var places: [Int]!
     
     override func didMove(to view: SKView) {
+        
+        score.loadScores()
+        places = score.highscore
         
         self.backgroundColor = SKColor(red: 210 / 255, green: 56 / 255, blue: 54 / 255, alpha: 1.0)
         
@@ -44,8 +48,7 @@ class GameOverScene: SKScene {
         top.position = CGPoint(x: self.frame.midX, y: self.frame.maxY - 30)
         addChild(top)
         
-        let topPlaces = places.sorted { $0  > $1 } .prefix(3)
-        for (index, value) in topPlaces.enumerated() {
+        for (index, value) in places.enumerated() {
             let l = SKLabelNode(text: value.description)
             l.fontColor = UIColor.white
             l.fontName = "ChalkboardSE-Light"

@@ -15,6 +15,7 @@ class GameScene: SKScene {
     
     fileprivate var player: Cat!
     fileprivate let gameInterface = GameInterface ()
+    fileprivate let score = Best ()
     fileprivate let screenSize = UIScreen.main.bounds.size
     fileprivate var lives = 3 {
         didSet {
@@ -169,6 +170,8 @@ extension GameScene: SKPhysicsContactDelegate {
             preconditionFailure("Unable to detect collision category")
         }
         if lives == 0 {
+            score.currentScore = gameInterface.score
+            score.saveScores()
             let gameOverScene = GameOverScene(size: self.size)
             let transition = SKTransition.crossFade(withDuration: 1.0)
             gameOverScene.scaleMode = .aspectFill
