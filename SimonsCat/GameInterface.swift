@@ -12,18 +12,30 @@ class GameInterface: SKNode {
     
     let scoreBackground = SKSpriteNode(imageNamed: "label_red")
     let scoreLabel = SKLabelNode(text: "0")
+    
+    let levelBackground = SKSpriteNode(imageNamed: "label_red")
+    let levelLabel = SKLabelNode(text: "Lvl 1")
+    
     var score: Int = 0 {
         didSet {
             scoreLabel.text = score.description
         }
     }
+    
+    var level: Int = 1 {
+        didSet {
+            let text = level.description
+            levelLabel.text = "Lvl \(text)"
+        }
+    }
+    
     let menuButton = SKSpriteNode(imageNamed: "menu")
     let life1 = SKSpriteNode(imageNamed: "heart")
     let life2 = SKSpriteNode(imageNamed: "heart")
     let life3 = SKSpriteNode(imageNamed: "heart")
     
     
-    // MARK: - ConfigureUI
+    // MARK: - Add score label
     
     func configureUI (screenSize: CGSize) {
         //add label background
@@ -31,7 +43,6 @@ class GameInterface: SKNode {
         scoreBackground.position = CGPoint(x: scoreBackground.size.width + 5, y: screenSize.height - scoreBackground.size.height / 2 - 5)
         scoreBackground.anchorPoint = CGPoint(x: 1.0, y: 0.5)
         scoreBackground.zPosition = 90
-        
         addChild(scoreBackground)
         
         //add label text
@@ -42,6 +53,25 @@ class GameInterface: SKNode {
         scoreLabel.fontName = "ChalkboardSE-Bold"
         scoreLabel.fontSize = 30
         scoreBackground.addChild(scoreLabel)
+        
+        
+        // MARK: - Add level label
+        
+        //add label background
+        levelBackground.setScale(0.6)
+        levelBackground.position = CGPoint(x: screenSize.width - 5, y: screenSize.height - levelBackground.size.height / 2 - 5)
+        levelBackground.anchorPoint = CGPoint(x: 1.0, y: 0.5)
+        levelBackground.zPosition = 90
+        addChild(levelBackground)
+        
+        //add label text
+        levelLabel.horizontalAlignmentMode = .right
+        levelLabel.verticalAlignmentMode = .center
+        levelLabel.position = CGPoint(x: -12, y: 0)
+        levelLabel.zPosition = 100
+        levelLabel.fontName = "ChalkboardSE-Bold"
+        levelLabel.fontSize = 30
+        levelBackground.addChild(levelLabel)
         
         //add menu
         menuButton.position = CGPoint(x: 5, y: 5)

@@ -11,13 +11,15 @@ import GameplayKit
 
 class ObjectsOnTheFloor: SKSpriteNode {
     
+    var movementSpeed: CGFloat  = 80.0
+    var distanceForRandom = 90
     
     // MARK: - Add random point
     
-    static func randomPoint () -> CGPoint {
+    func randomPoint () -> CGPoint {
         let screen = UIScreen.main.bounds
         //above the screen for 50-100
-        let distributionY = GKRandomDistribution(lowestValue: Int(screen.size.height) + 50, highestValue: Int(screen.size.height) + 100)
+        let distributionY = GKRandomDistribution(lowestValue: Int(screen.size.height) + 30, highestValue: Int(screen.size.height) + distanceForRandom)
         let y = CGFloat(distributionY.nextInt())
         //from 50 to the width of the screen - 50
         let distributionX = GKRandomDistribution(lowestValue: 50, highestValue: Int(screen.size.width) - 50)
@@ -29,7 +31,7 @@ class ObjectsOnTheFloor: SKSpriteNode {
     
     // MARK: - Add objects
     
-    static func populate (at point: CGPoint? ) -> ObjectsOnTheFloor {
+    func populate (at point: CGPoint? ) -> ObjectsOnTheFloor {
         
         let nameObject = configuraObjectsName ()
         let objectTexture = Assets.shared.foodOrNotFood.textureNamed(nameObject)
@@ -71,7 +73,7 @@ class ObjectsOnTheFloor: SKSpriteNode {
     
     // MARK: - Random number for objects
     
-    fileprivate static func configuraObjectsName () -> (String) {
+    fileprivate func configuraObjectsName () -> (String) {
         
         let distributionImg = GKRandomDistribution(lowestValue: 1, highestValue: 6)
         let randomNumber = distributionImg.nextInt()
@@ -91,10 +93,9 @@ class ObjectsOnTheFloor: SKSpriteNode {
     
     // MARK: - Move the object vertically
 
-    fileprivate static func move(from point: CGPoint) -> SKAction {
+    fileprivate func move(from point: CGPoint) -> SKAction {
         let movePoint = CGPoint(x: point.x, y: -200)
         let moveDistance = point.y + 200
-        let movementSpeed: CGFloat = 50.0
         let duratiom = moveDistance / movementSpeed
         return SKAction.move(to: movePoint, duration: TimeInterval(duratiom))
         

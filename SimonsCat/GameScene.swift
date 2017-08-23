@@ -14,9 +14,14 @@ class GameScene: SKScene {
     let sceneManager = SceneManager.shared
     
     fileprivate var player: Cat!
+    fileprivate var objectsOnTheFloor = ObjectsOnTheFloor ()
     fileprivate let gameInterface = GameInterface ()
     fileprivate let score = Best ()
     fileprivate let screenSize = UIScreen.main.bounds.size
+    
+    
+    // MARK: - To hide lives
+    
     fileprivate var lives = 3 {
         didSet {
             switch lives {
@@ -34,6 +39,23 @@ class GameScene: SKScene {
                 gameInterface.life3.isHidden = true
             default:
                 break
+            }
+        }
+    }
+    
+    
+    // MARK: - Score and level
+    
+    fileprivate var scoreForLevel = 1 {
+        didSet {
+            gameInterface.score += 10
+            if scoreForLevel % 5 == 0 {
+                gameInterface.level += 1
+                print(scoreForLevel)
+                objectsOnTheFloor.movementSpeed += 10
+                if objectsOnTheFloor.distanceForRandom > 40 {
+                    objectsOnTheFloor.distanceForRandom -= 5
+                }
             }
         }
     }
@@ -60,6 +82,7 @@ class GameScene: SKScene {
         createGameInterface ()
     }
     
+    
     fileprivate func createGameInterface () {
         addChild(gameInterface)
         gameInterface.configureUI(screenSize: screenSize)
@@ -69,11 +92,10 @@ class GameScene: SKScene {
     
     fileprivate func spawnObjectsOnTheFloor () {
         //pause
-        let ramdomTime = Double(arc4random_uniform(6) + 2)
-        let spawnObjectWait = SKAction.wait(forDuration: ramdomTime)
+        let spawnObjectWait = SKAction.wait(forDuration: 2)
         //add random object
         let spawnObjectAction = SKAction.run {
-            let object = ObjectsOnTheFloor.populate(at: nil)
+            let object = self.objectsOnTheFloor.populate(at: nil)
             self.addChild(object)
         }
         let spawnObjectSequence = SKAction.sequence([spawnObjectWait, spawnObjectAction])
@@ -90,7 +112,7 @@ class GameScene: SKScene {
         let screen = UIScreen.main.bounds
         
         //add starting item
-        let itemsOnTheFloor = ObjectsOnTheFloor.populate(at: CGPoint(x: screen.size.width / 3, y: screen.size.height))
+        let itemsOnTheFloor = objectsOnTheFloor.populate(at: CGPoint(x: screen.size.width / 3, y: screen.size.height))
         self.addChild(itemsOnTheFloor)
         
         //add a cat
@@ -146,7 +168,7 @@ extension GameScene: SKPhysicsContactDelegate {
         let contactCategory: BitMaskCategory = [contact.bodyA.category, contact.bodyB.category]
         
         switch contactCategory {
-        case [.cat, .notFood]: print("cat vs notFood")
+        case [.cat, .notFood]:
         if contact.bodyA.node?.name == "оbjectsOnTheFloor" {
             if contact.bodyA.node?.parent != nil {
                 contact.bodyA.node?.removeFromParent()
@@ -157,14 +179,15 @@ extension GameScene: SKPhysicsContactDelegate {
                 contact.bodyB.node?.removeFromParent()
                 lives -= 1
             }
-            }
-        case [.cat, .food]: print("cat vs food")
+        }
+        case [.cat, .food]:
         if contact.bodyA.node?.name == "оbjectsOnTheFloor" {
             contact.bodyA.node?.removeFromParent()
-            gameInterface.score += 10
+            scoreForLevel += 1
+
         } else if contact.bodyB.node?.name == "оbjectsOnTheFloor" {
             contact.bodyB.node?.removeFromParent()
-            gameInterface.score += 10
+            scoreForLevel += 1
             }
         default:
             preconditionFailure("Unable to detect collision category")
