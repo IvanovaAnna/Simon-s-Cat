@@ -28,6 +28,7 @@ class Cat: SKSpriteNode {
         cat.zPosition = 10
         
         
+        
         // MARK: - Physics body
 
         cat.physicsBody = SKPhysicsBody(texture: catTexture, alphaThreshold: 0.5, size: cat.size)

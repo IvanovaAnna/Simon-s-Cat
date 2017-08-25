@@ -37,10 +37,10 @@ class ObjectsOnTheFloor: SKSpriteNode {
         let objectTexture = Assets.shared.foodOrNotFood.textureNamed(nameObject)
         let object = ObjectsOnTheFloor(texture: objectTexture)
 
-        object.setScale(0.4)
+        object.setScale(0.45)
         //if no point - a random point
         object.position = point ?? randomPoint()
-        object.zPosition = 10
+        object.zPosition = 9
         //add name for removing
         object.name = "оbjectsOnTheFloor"
         //move the middle up (y) for removing

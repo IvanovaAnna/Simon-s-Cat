@@ -15,6 +15,7 @@ class Best: NSObject {
     var highscore: [Int] = []
     var currentScore = 0
     let highscoreKey = "highscore"
+    var highscoreCount = 3
     
     override init() {
         super.init()
@@ -23,7 +24,10 @@ class Best: NSObject {
     
     func saveScores() {
         highscore.append(currentScore)
-        highscore = Array(highscore.sorted { $0 > $1 } .prefix(3))
+        if highscoreCount > highscore.count {
+            highscoreCount = highscore.count
+        }
+        highscore = Array(highscore.sorted { $0 > $1 } .prefix(highscoreCount))
         userDefaults.set(highscore, forKey: highscoreKey)
         userDefaults.synchronize()
     }
